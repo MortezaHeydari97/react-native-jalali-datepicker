@@ -55,5 +55,12 @@
     "bugs": {
         "url": "https://github.com/MortezaHeydari97/react-native-jalali-datepicker/issues",
         "email": "mortezaheydarime@gmail.com"
-    }
+    },
+    "keywords": [
+        "react-native",
+        "datepicker",
+        "jalali-moment",
+        "android",
+        "component"
+    ]
 }
