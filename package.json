@@ -1,6 +1,6 @@
 {
     "name": "react-native-jalali-picker",
-    "version": "0.0.1-rc.2",
+    "version": "0.0.2",
     "main": "lib/Datepicker.tsx",
     "types": "lib/Datepicker.d.ts",
     "homepage": "https://github.com/MortezaHeydari97/react-native-jalali-datepicker#readme",
