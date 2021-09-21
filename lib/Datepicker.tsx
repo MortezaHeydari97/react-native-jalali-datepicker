@@ -7,34 +7,18 @@ import {
     ScrollView,
     TouchableOpacity,
     View,
-    StyleProp,
-    ViewStyle,
-    TextStyle,
     Image,
     Pressable
 } from 'react-native';
 import styles from './styles';
 import moment from 'jalali-moment';
 import { months, weekDays } from '../utils/utils';
-import type { PickerInputProps, PickerLabelProps } from './types';
+import { DatepickerProps } from './interfaces';
 
 
 
-interface DatepickerProps extends PickerInputProps {
-    label?: string
-    format?: string
 
-    // more props
-    labelProps?: PickerLabelProps
-
-    containerStyle?: StyleProp<ViewStyle>
-    inputContainerStyle?: StyleProp<ViewStyle>
-    labelStyles?: StyleProp<TextStyle>
-
-    // methods
-    onChange: (date: string) => void
-}
-export const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...props}) => {
+const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...props}) => {
     const chevron = require('./chevron.png')
 
     // states
@@ -318,3 +302,7 @@ export const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD',
         </View>
     )
 }
+
+
+
+export default Datepicker;
