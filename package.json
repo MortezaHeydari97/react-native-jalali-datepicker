@@ -1,6 +1,8 @@
 {
     "name": "react-native-jalali-picker",
-    "version": "0.0.1-rc.1",
+    "version": "0.0.1-rc.2",
+    "main": "lib/Datepicker.tsx",
+    "types": "lib/Datepicker.d.ts",
     "homepage": "https://github.com/MortezaHeydari97/react-native-jalali-datepicker#readme",
     "scripts": {
         "android": "npx react-native run-android",
@@ -9,11 +11,7 @@
         "test": "jest",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
     },
-    "dependencies": {
-        "jalali-moment": "^3.3.10",
-        "react": "17.0.1",
-        "react-native": "0.64.1"
-    },
+    "dependencies": { },
     "devDependencies": {
         "@babel/core": "^7.12.9",
         "@babel/runtime": "^7.12.5",
@@ -27,6 +25,10 @@
         "metro-react-native-babel-preset": "^0.64.0",
         "react-test-renderer": "17.0.1",
         "typescript": "^3.8.3"
+    },
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*"
     },
     "resolutions": {
         "@types/react": "^17"
@@ -55,5 +57,12 @@
     "bugs": {
         "url": "https://github.com/MortezaHeydari97/react-native-jalali-datepicker/issues",
         "email": "mortezaheydarime@gmail.com"
-    }
+    },
+    "keywords": [
+        "react-native",
+        "datepicker",
+        "jalali-moment",
+        "android",
+        "component"
+    ]
 }
