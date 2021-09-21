@@ -1,0 +1,10 @@
+/*
+
+# exceptions
+!/lib/
+!/android/
+!/ios/
+
+
+# overrides
+/android/app/build/
