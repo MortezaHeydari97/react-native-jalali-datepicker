@@ -9,12 +9,14 @@ import {
     View,
     StyleProp,
     ViewStyle,
-    TextStyle
+    TextStyle,
+    Image,
+    Pressable
 } from 'react-native';
 import styles from './styles';
 import moment from 'jalali-moment';
 import { months, weekDays } from '../utils/utils';
-import { PickerInputProps, PickerLabelProps } from './types';
+import type { PickerInputProps, PickerLabelProps } from './types';
 
 
 
@@ -33,6 +35,7 @@ interface DatepickerProps extends PickerInputProps {
     onChange: (date: string) => void
 }
 export const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...props}) => {
+    const chevron = require('./chevron.png')
 
     // states
     const [open, setOpen] = React.useState<boolean>(false)
@@ -210,6 +213,7 @@ export const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD',
 
                 <Input
                     {...props}
+                    onChange={() => {}}
                     editable={false}
                     defaultValue={selectedDate}
                     onChangeText={() => {}}
@@ -234,14 +238,24 @@ export const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD',
 
                             {/* Header */}
                             <View style={styles.datepickerHeader}>
-                                {/* <Icon name="chevron-right" size={20} style={[styles.monthChange, {color: colors.text}]} onPress={lastMonth} /> */}
+                                <Pressable onPress={lastMonth}>
+                                    <Image
+                                        source={chevron}
+                                        style={[styles.chevron, {transform: [{rotate: '180deg'}]}]}
+                                        />
+                                </Pressable>
 
                                 <View style={{flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse'}}>
                                     <Text style={styles.calendarHeaderTitle} onPress={() => setMonthView(true)}> {month} </Text>
                                     <Text style={styles.calendarHeaderTitle} onPress={() => setYearsView(true)}> {year} </Text>
                                 </View>
 
-                                {/* <Icon name="chevron-left" size={20} style={[styles.monthChange, {color: colors.text}]} onPress={nextMonth} /> */}
+                                <Pressable onPress={nextMonth}>
+                                    <Image
+                                        source={chevron}
+                                        style={styles.chevron}
+                                        />
+                                </Pressable>
                             </View>
 
 

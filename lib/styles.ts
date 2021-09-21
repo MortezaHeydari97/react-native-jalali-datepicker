@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
     calendarHeaderTitle: {
         fontSize: 20
     },
+    chevron: {
+        width: 20,
+        height: 20,
+        resizeMode: 'contain'
+    },
 
     selectedDateContainer: {
         alignItems: 'center',
