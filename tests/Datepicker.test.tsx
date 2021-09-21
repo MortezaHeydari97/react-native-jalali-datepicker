@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import Datepicker from '../lib/Main';
+import {Datepicker} from '../lib/Datepicker';
 import renderer from 'react-test-renderer';
 
 
