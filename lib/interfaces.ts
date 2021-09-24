@@ -3,6 +3,12 @@ import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 import type { PickerInputProps, PickerLabelProps } from './types';
 
 
+interface WeekModel {
+    label: string
+    value: string
+}
+
+
 export interface DatepickerProps extends PickerInputProps {
     // input
     label?: string
@@ -10,10 +16,14 @@ export interface DatepickerProps extends PickerInputProps {
 
     // more props
     labelProps?: PickerLabelProps
+    weekDaysLables?: WeekModel[]
 
+    // styles
     containerStyle?: StyleProp<ViewStyle>
     inputContainerStyle?: StyleProp<ViewStyle>
     labelStyle?: StyleProp<TextStyle>
+
+    weekDaysStyles?: StyleProp<TextStyle>
 
     // methods
     onChange?: (date: string) => void

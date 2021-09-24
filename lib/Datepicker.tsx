@@ -302,9 +302,13 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                             {/* Week Days */}
                             <View style={styles.weekDaysContainer}>
                                 {
-                                    weekDays().map(weekDay => {
-                                        return <Text key={weekDay.value} style={styles.weekDay}> {weekDay.label} </Text>
-                                    })
+                                    (props.weekDaysLables || weekDays()).map(weekDay => (
+                                        <Text
+                                            key={weekDay.value}
+                                            children={weekDay.label}
+                                            style={[styles.weekDay, props.weekDaysStyles]}
+                                            />
+                                    ))
                                 }
                             </View>
 
