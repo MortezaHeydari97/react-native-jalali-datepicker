@@ -264,6 +264,7 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
 
                 <Input
                     {...props}
+                    style={[props.inputStyle]}
                     onChange={() => {}}
                     editable={false}
                     defaultValue={selectedDate}

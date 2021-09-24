@@ -21,6 +21,7 @@ export interface DatepickerProps extends PickerInputProps {
     // styles
     containerStyle?: StyleProp<ViewStyle>
     inputContainerStyle?: StyleProp<ViewStyle>
+    inputStyle?: StyleProp<TextStyle>
     labelStyle?: StyleProp<TextStyle>
 
     weekDaysStyles?: StyleProp<TextStyle>
