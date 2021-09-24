@@ -34,7 +34,7 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
     const [yearsView, setYearsView] = React.useState<boolean>(false)
 
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         defaultConfigs()
     }, [])
 
@@ -128,19 +128,86 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
     }
 
 
+    /**
+     * @description renders datepicker header section
+     *
+     */
+    const _renderDatepickerHeader = () => (
+        <View style={styles.datepickerHeader}>
+            <Pressable onPress={lastMonth}>
+                {
+                    props.backChevronIconComponent ||
+                    <Image
+                        source={chevron}
+                        style={[styles.chevron, {transform: [{rotate: '180deg'}]}]}
+                        />
+                }
+            </Pressable>
+
+            <View style={{flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse'}}>
+                <Text style={styles.calendarHeaderTitle} onPress={() => setMonthView(true)}> {month} </Text>
+                <Text style={styles.calendarHeaderTitle} onPress={() => setYearsView(true)}> {year} </Text>
+            </View>
+
+            <Pressable onPress={nextMonth}>
+                {
+                    props.nextChevronIconComponent ||
+                    <Image
+                        source={chevron}
+                        style={styles.chevron}
+                        />
+                }
+            </Pressable>
+        </View>
+    )
+
+
+
+    const _renderDatepickerFooter = () => (
+        <View style={styles.calendarFooter}>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.actionBtn}
+                onPress={setValue}>
+                <Text
+                    children="تأیید"
+                    style={styles.actionButtonLabel}
+                    />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.actionBtn}
+                onPress={cancel}>
+                <Text
+                    children="لغو"
+                    style={styles.actionButtonLabel}
+                    />
+            </TouchableOpacity>
+        </View>
+    )
+
+
 
     const setValue = () => {
         setSelectedDate(`${year} / ${monthIndex+1 >= 10 ? monthIndex+1 : '0'+(monthIndex+1) } / ${day >= 10 ? day : '0'+(day)}`)
-        props.onChange(`${year}/${monthIndex+1 >= 10 ? monthIndex+1 : '0'+(monthIndex+1) }/${day >= 10 ? day : '0'+(day)}`)
-        setOpen(false)
-    }
-
-    const cancel = () => {
+        props.onChange && props.onChange(`${year}/${monthIndex+1 >= 10 ? monthIndex+1 : '0'+(monthIndex+1) }/${day >= 10 ? day : '0'+(day)}`)
         setOpen(false)
     }
 
 
-    const renderYears = React.useCallback(
+
+    /**
+     * @description closes datepicker without passing data
+     */
+    const cancel = () => setOpen(false)
+
+
+
+    /**
+     * @description renders years view
+     */
+    const _renderYears = React.useCallback(
         () => {
             return (
                 <ScrollView contentContainerStyle={styles.yearsContainer}>
@@ -156,10 +223,14 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                 </ScrollView>
             )
         },
-        [year]
+        []
     )
 
-    const renderMonths = React.useCallback(
+
+    /**
+     * @description Render month view
+     */
+    const _renderMonths = React.useCallback(
         () => {
             return (
                 <View style={styles.yearsContainer}>
@@ -176,6 +247,9 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
         [month]
     )
 
+
+
+
     return (
         <View style={props.containerStyle}>
 
@@ -185,7 +259,7 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                 <Text
                     {...props.labelProps}
                     children={props.label}
-                    style={props.labelStyles}
+                    style={props.labelStyle}
                     />
             }
 
@@ -197,6 +271,7 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
 
                 <Input
                     {...props}
+                    style={[props.inputStyle]}
                     onChange={() => {}}
                     editable={false}
                     defaultValue={selectedDate}
@@ -209,11 +284,11 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                     onRequestClose={closeDatepicker}>
 
                     {/* Years list view */}
-                    { yearsView && renderYears() }
+                    { yearsView && _renderYears() }
 
 
                     {/* Months list view */}
-                    { monthView && renderMonths() }
+                    { monthView && _renderMonths() }
 
 
                     {/* Calendar container */}
@@ -221,26 +296,7 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                         (!yearsView && !monthView) && <View style={styles.datepickerContainer}>
 
                             {/* Header */}
-                            <View style={styles.datepickerHeader}>
-                                <Pressable onPress={lastMonth}>
-                                    <Image
-                                        source={chevron}
-                                        style={[styles.chevron, {transform: [{rotate: '180deg'}]}]}
-                                        />
-                                </Pressable>
-
-                                <View style={{flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse'}}>
-                                    <Text style={styles.calendarHeaderTitle} onPress={() => setMonthView(true)}> {month} </Text>
-                                    <Text style={styles.calendarHeaderTitle} onPress={() => setYearsView(true)}> {year} </Text>
-                                </View>
-
-                                <Pressable onPress={nextMonth}>
-                                    <Image
-                                        source={chevron}
-                                        style={styles.chevron}
-                                        />
-                                </Pressable>
-                            </View>
+                           {_renderDatepickerHeader()}
 
 
                             {/* Selected Date */}
@@ -254,9 +310,13 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                             {/* Week Days */}
                             <View style={styles.weekDaysContainer}>
                                 {
-                                    weekDays().map(weekDay => {
-                                        return <Text key={weekDay.value} style={styles.weekDay}> {weekDay.label} </Text>
-                                    })
+                                    (props.weekDaysLables || weekDays()).map(weekDay => (
+                                        <Text
+                                            key={weekDay.value}
+                                            children={weekDay.label}
+                                            style={[styles.weekDay, props.weekDaysStyle]}
+                                            />
+                                    ))
                                 }
                             </View>
 
@@ -266,12 +326,25 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                                 {
                                     monthDays.map((dayItem, index) => {
                                         return dayItem === day ?
-                                            <Text key={index} style={[styles.dayCell, {color: 'red'}]} onPress={() => dayItem > 0 && setDay(dayItem)}> {dayItem} </Text> :
-                                            <React.Fragment key={index}>
+                                            <Text
+                                                key={`day_${index}`}
+                                                children={dayItem}
+                                                style={[styles.dayCell, {color: 'red'}]}
+                                                onPress={() => dayItem > 0 && setDay(dayItem)}
+                                                /> :
+                                            <React.Fragment key={`day_${index}`}>
                                                 {
                                                     year === moment().jYear() && monthIndex === moment().jMonth() && dayItem === moment().jDate() ?
-                                                        <Text style={[styles.dayCell, styles.today]} onPress={() => dayItem > 0 && setDay(dayItem)}> {dayItem} </Text> :
-                                                        <Text style={[styles.dayCell, {opacity: dayItem > 0 ? 1 : 0}]} onPress={() => dayItem > 0 && setDay(dayItem)}> {dayItem} </Text>
+                                                        <Text
+                                                            children={dayItem}
+                                                            style={[styles.dayCell, styles.today]}
+                                                            onPress={() => dayItem > 0 && setDay(dayItem)}
+                                                            /> :
+                                                        <Text
+                                                            children={dayItem}
+                                                            style={[styles.dayCell, props.dayCellsStyle, {opacity: dayItem > 0 ? 1 : 0}]}
+                                                            onPress={() => dayItem > 0 && setDay(dayItem)}
+                                                            />
                                                 }
                                             </React.Fragment>
                                     })
@@ -280,20 +353,7 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
 
 
                             {/* Footer */}
-                            <View style={styles.calendarFooter}>
-                                <TouchableOpacity
-                                    activeOpacity={0.7}
-                                    style={styles.actionBtn}
-                                    onPress={setValue}>
-                                    <Text style={styles.actionButtonLabel}> انتخاب تاریخ </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    activeOpacity={0.7}
-                                    style={styles.actionBtn}
-                                    onPress={cancel}>
-                                    <Text style={styles.actionButtonLabel}> لغو </Text>
-                                </TouchableOpacity>
-                            </View>
+                            {_renderDatepickerFooter()}
                         </View>
                     }
 

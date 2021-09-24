@@ -1,5 +1,7 @@
-import { I18nManager, StyleSheet } from 'react-native';
+import { Dimensions, I18nManager, StyleSheet } from 'react-native';
 
+
+const screenWidth = Dimensions.get('screen').width
 
 const styles = StyleSheet.create({
     yearsContainer: {
@@ -66,14 +68,17 @@ const styles = StyleSheet.create({
 
     weekDaysContainer: {
         flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
-        justifyContent: 'space-between',
-        marginBottom: 10
+        justifyContent: 'flex-start',
+        marginBottom: 10,
+        paddingHorizontal: 10
     },
     weekDay: {
         color: '#000',
-        fontSize: 11,
-        width: '14.2%',
+        fontSize: 14,
+        width: screenWidth / 7 - 5,
         textAlign: 'center',
+        backgroundColor: 'red',
+        marginHorizontal: 1
     },
 
     calendarBody: {
@@ -81,16 +86,18 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
         marginBottom: 'auto'
     },
     dayCell: {
-        width: '14.2%',
+        width: screenWidth / 7 - 5,
         textAlign: 'center',
         borderRadius: 10,
         height: 40,
-        paddingTop: 10,
-        fontSize: 15
+        fontSize: 15,
+        marginBottom: 2,
+        marginHorizontal: 1,
+        textAlignVertical: 'center'
     },
 
     today: {
