@@ -169,13 +169,20 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                 activeOpacity={0.7}
                 style={styles.actionBtn}
                 onPress={setValue}>
-                <Text style={styles.actionButtonLabel}> انتخاب تاریخ </Text>
+                <Text
+                    children="تأیید"
+                    style={styles.actionButtonLabel}
+                    />
             </TouchableOpacity>
+
             <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.actionBtn}
                 onPress={cancel}>
-                <Text style={styles.actionButtonLabel}> لغو </Text>
+                <Text
+                    children="لغو"
+                    style={styles.actionButtonLabel}
+                    />
             </TouchableOpacity>
         </View>
     )
@@ -307,7 +314,7 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                                         <Text
                                             key={weekDay.value}
                                             children={weekDay.label}
-                                            style={[styles.weekDay, props.weekDaysStyles]}
+                                            style={[styles.weekDay, props.weekDaysStyle]}
                                             />
                                     ))
                                 }
@@ -320,16 +327,24 @@ const Datepicker: React.FC<DatepickerProps> = ({format = 'jYYYY/jMM/jDD', ...pro
                                     monthDays.map((dayItem, index) => {
                                         return dayItem === day ?
                                             <Text
-                                                key={index}
+                                                key={`day_${index}`}
                                                 children={dayItem}
                                                 style={[styles.dayCell, {color: 'red'}]}
                                                 onPress={() => dayItem > 0 && setDay(dayItem)}
                                                 /> :
-                                            <React.Fragment key={index}>
+                                            <React.Fragment key={`day_${index}`}>
                                                 {
                                                     year === moment().jYear() && monthIndex === moment().jMonth() && dayItem === moment().jDate() ?
-                                                        <Text style={[styles.dayCell, styles.today]} onPress={() => dayItem > 0 && setDay(dayItem)}> {dayItem} </Text> :
-                                                        <Text style={[styles.dayCell, {opacity: dayItem > 0 ? 1 : 0}]} onPress={() => dayItem > 0 && setDay(dayItem)}> {dayItem} </Text>
+                                                        <Text
+                                                            children={dayItem}
+                                                            style={[styles.dayCell, styles.today]}
+                                                            onPress={() => dayItem > 0 && setDay(dayItem)}
+                                                            /> :
+                                                        <Text
+                                                            children={dayItem}
+                                                            style={[styles.dayCell, props.dayCellsStyle, {opacity: dayItem > 0 ? 1 : 0}]}
+                                                            onPress={() => dayItem > 0 && setDay(dayItem)}
+                                                            />
                                                 }
                                             </React.Fragment>
                                     })
