@@ -4,8 +4,11 @@ A fully customizable jalali datepicker that powered by [`jalali-moment`](https:/
 
 
 ## Installation
-You can install the package by the command:
+You can install the package by the command: <br/>
 `npm install react-native-jalali-picker --save`
+
+⚠ caution: To use the lib, you must to install `jalali-moment` lib. To install it run the command: <br/>
+`npm install jalali-moment`
 
 
 ## Usage
