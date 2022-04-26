@@ -13,3 +13,9 @@ trim_trailing_whitespace = true
 # Windows files
 [*.bat]
 end_of_line = crlf
+
+
+# Config files
+[*.{json,yml,yaml}]
+indent_size = 2
+tab_width = 2
